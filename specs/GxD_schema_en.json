@@ -1,0 +1,122 @@
+{
+    "$id": "https://github.com/Green-x-Digital-Consortium/data-model-extensions/blob/main/specs/GxD_schema_en.json",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "Green x Digital Consortium Extension Schema",
+    "description": "A PACT Data Model Extension for Green x Digital Consortium.",
+    "$defs": {
+      "organization": {
+        "type": "object",
+        "description": "Organization-based calculation information",
+        "properties": {
+          "declaredUnit": {
+            "type": "string",
+            "description": "Declared unit. A string compliant with ISO4217"
+          },
+          "crossSectoralStandardsUsed": {
+            "type": "array",
+            "description": "Cross-sectoral standards applied",
+            "items": { "type": "string" },
+            "enum": ["ISO Standard 14040", "ISO Standard 14025", "ISO T/S 14027", "GHG Protocol scope3 standard", "GHG Protocol scope3 standard"]
+          },
+          "scope3Category": {
+            "type": "array",
+            "description": "Calculation target categories (for organization-based calculations)",
+            "items": { "type": "string" } 
+          },
+          "scope1DistributionLevel": {
+            "type": "string",
+            "description": "Distribution level Scope 1 (for organization-based calculations)",
+            "enum": ["organization", "site", "building", "production line"]
+          },
+          "scope2DistributionLevel": {
+            "type": "string",
+            "description": "Distribution level Scope 2 (for organization-based calculations)",
+            "enum": ["organization", "site", "building", "production line"]
+          },
+          "scope3DistributionLevel": {
+            "type": "string",
+            "description": "Distribution level Scope 3 (for organization-based calculations)",
+            "enum": ["organization", "site", "building", "production line"]
+          },
+          "scope1DistributionIndex": {
+            "type": "string",
+            "description": "Distribution index Scope 1 (for organization-based calculations)",
+            "enum": ["volume", "unit", "production"]
+          },
+          "scope2DistributionIndex": {
+            "type": "string",
+            "description": "Distribution index Scope 2 (for organization-based calculations)",
+            "enum": ["volume", "unit", "production"]
+          },
+          "scope3DistributionIndex": {
+            "type": "string",
+            "description": "Distribution index Scope 3 (for organization-based calculations)",
+            "enum": ["volume", "unit", "production"]
+          },
+          "distributionLevelComment": {
+            "type": "string",
+            "description": "Distribution level comment"
+          },
+          "distributionIndexComment": {
+            "type": "string",
+            "description": "Distribution index comment"
+          }
+        },
+        "required": [
+          "declaredUnit",
+          "crossSectoralStandardsUsed",
+          "scope1DistributionLevel",
+          "scope2DistributionLevel",
+          "scope3DistributionLevel"
+        ]
+      },
+      "gateToGate": {
+        "type": "object",
+        "description": "gate-to-gate emissions",
+        "properties": {
+          "gateToGateFossilGhgEmissions": {
+            "type": "string",
+            "description": "Gate-to-Gate emissions (excluding biogenic emissions and removals)"
+          },
+          "gateToGateBiogenicCarbonContent": {
+            "type": "string",
+            "description": "Gate-to-Gate emissions (including biogenic emissions and removals)"
+          },
+          "unitaryProductAmountComment": {
+            "type": "string",
+            "description": "Product Amount Comment. Explanation of \"Product Amount\" and \"Declared Unit\""
+          }
+        }
+      },
+      "certificate": {
+        "type": "object",
+        "description": "Certificate information (including J-Credits derived from renewable energy)",
+        "properties": {
+          "certificateAmount": {
+            "type": "string",
+            "description": "Certificate amount"
+          },
+          "certificateType": {
+            "type": "string",
+            "description": "Certificate type"
+          }
+        }
+      }
+    },
+    "type": "object",
+    "properties": {
+      "calcMethod": {
+        "type": "string",
+        "description": "Product-based calculation: 0 Organization-based calculation: 1",
+        "enum": ["0", "1"]
+      },
+      "FWedition": {
+        "type": "string",
+        "description": "The version of the Carbon Visualization Framework referenced"
+      },
+      "organization": { "$ref": "#/$defs/organization" },
+      "certificate": { "$ref": "#/$defs/certificate" },
+      "gateToGate": { "$ref": "#/$defs/gateToGate" }
+    },
+    "required": ["calcMethod", "FWedition"]
+  }
