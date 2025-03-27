@@ -1,6 +1,6 @@
 ## Green x Digital Consortium Extension for Technical Specifications for Data Exchange
 
-### Updated March 26, 2025
+### Updated March 27, 2025
 
 ---
 
