@@ -8,16 +8,6 @@
         "type": "object",
         "description": "Organization-based calculation information",
         "properties": {
-          "declaredUnit": {
-            "type": "string",
-            "description": "Declared unit. A string compliant with ISO4217"
-          },
-          "crossSectoralStandardsUsed": {
-            "type": "array",
-            "description": "Cross-sectoral standards applied",
-            "items": { "type": "string" },
-            "enum": ["ISO Standard 14040", "ISO Standard 14025", "ISO T/S 14027", "GHG Protocol scope3 standard", "GHG Protocol scope3 standard"]
-          },
           "scope3Category": {
             "type": "array",
             "description": "Calculation target categories (for organization-based calculations)",
