@@ -1,0 +1,112 @@
+{
+  "$id": "https://github.com/Green-x-Digital-Consortium/data-model-extensions/blob/main/specs/GxD_schema_en.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Green x Digital Consortium Extension Schema",
+  "description": "A Pathfinder Data Model Extension for Green x Digital Consortium.",
+  "$defs": {
+    "organization": {
+      "type": "object",
+      "description": "組織ベース算定情報",
+      "properties": {
+        "scope3Category": {
+          "type": "array",
+          "description": "算定対象カテゴリ（組織ベース算定用）",
+          "items": { "type": "string" } 
+        },
+        "scope1DistributionLevel": {
+          "type": "string",
+          "description": "配分レベル Scope1（組織ベース算定用）",
+          "enum": ["organization", "site", "building", "production line"]
+        },
+        "scope2DistributionLevel": {
+          "type": "string",
+          "description": "配分レベル Scope2（組織ベース算定用）",
+          "enum": ["organization", "site", "building", "production line"]
+        },
+        "scope3DistributionLevel": {
+          "type": "string",
+          "description": "配分レベル Scope3（組織ベース算定用）",
+          "enum": ["organization", "site", "building", "production line"]
+        },
+        "scope1DistributionIndex": {
+          "type": "string",
+          "description": "配分の指標 Scope1（組織ベース算定用）",
+          "enum": ["volume", "unit", "production"]
+        },
+        "scope2DistributionIndex": {
+          "type": "string",
+          "description": "配分の指標 Scope2（組織ベース算定用）",
+          "enum": ["volume", "unit", "production"]
+        },
+        "scope3DistributionIndex": {
+          "type": "string",
+          "description": "配分の指標 Scope3（組織ベース算定用）",
+          "enum": ["volume", "unit", "production"]
+        },
+        "distributionLevelComment": {
+          "type": "string",
+          "description": "配分レベル記述欄"
+        },
+        "distributionIndexComment": {
+          "type": "string",
+          "description": "配分の指標記述欄"
+        }
+      },
+      "required": [
+        "declaredUnit",
+        "crossSectoralStandardsUsed",
+        "scope1DistributionLevel",
+        "scope2DistributionLevel",
+        "scope3DistributionLevel"
+      ]
+    },
+    "gateToGate": {
+      "type": "object",
+      "description": "Gate-to-Gate排出量情報",
+      "properties": {
+        "gateToGateFossilGhgEmissions": {
+          "type": "string",
+          "description": "Gate-to-Gate排出量（生物由来の排出と除去を含まない）"
+        },
+        "gateToGateBiogenicCarbonContent": {
+          "type": "string",
+          "description": "Gate-to-Gate排出量（生物由来の排出と除去を含む）"
+        },
+        "unitaryProductAmountComment": {
+          "type": "string",
+          "description": "製品量記述欄。「製品量」と「宣言単位」についての説明"
+        }
+      }
+    },
+    "certificate": {
+      "type": "object",
+      "description": "証書情報（含む再エネ電力由来J-クレジット）",
+      "properties": {
+        "certificateAmount": {
+          "type": "string",
+          "description": "証書使用量"
+        },
+        "certificateType": {
+          "type": "string",
+          "description": "証書種類"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "properties": {
+    "calcMethod": {
+      "type": "string",
+      "description": "算定方法。0: 製品ベース算定、1: 組織ベース算定",
+      "enum": ["0", "1"]
+    },
+    "FWedition": {
+      "type": "string",
+      "description": "参照したCO2可視化フレームワークのEdition。CO2可視化 フレームワーク Edition 2.0 を参照した場合は 「2.0」"
+    },
+    "organization": { "$ref": "#/$defs/organization" },
+    "certificate": { "$ref": "#/$defs/certificate" },
+    "gateToGate": { "$ref": "#/$defs/gateToGate" }
+  },
+  "required": ["calcMethod", "FWedition"]
+}
